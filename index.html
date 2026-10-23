@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nerv Dynamics</title>
+<meta name="description" content="Nerv Dynamics AB, Stockholm, makes Nerv Linux, the operating system for NVIDIA Grace Blackwell computers, and offers its management plane, supported generations and preinstallation licences.">
+<link rel="canonical" href="https://nervdynamics.ai/">
+<meta property="og:title" content="Nerv Dynamics">
+<meta property="og:description" content="The company behind Nerv Linux, the operating system for NVIDIA Grace Blackwell computers.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nervdynamics.ai/">
+<link rel="icon" href="/assets/favicon.png" sizes="32x32">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/nerv-square.png">
+<link rel="preload" href="/fonts/ashinoko-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/fonts.css">
+<link rel="stylesheet" href="/css/palette.css">
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/site.css">
+<style>
+  .masthead__brand .logo { height: 34px; width: auto; }
+  /* The logo is drawn for a light page; on dark, invert its black and turn its red back to red. */
+  :root:not([data-theme="light"]) .masthead__brand .logo { filter: invert(1) hue-rotate(180deg); }
+
+  /* Behind the whole page: the network (assets/field.js). The page's own background moves
+     to <html> so the field, fixed between the two, shows through every section. */
+  html { background: var(--bg); }
+  body { background: transparent; }
+  .field { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; display: block; }
+  .section--subtle { background: color-mix(in srgb, var(--bg-subtle) 75%, transparent); }
+  /* Behind each block of text, a solid patch of the section's own colour whose edges fade out, so
+     the network shows in the margins and between blocks but never through the words. */
+  main { --halo: var(--bg); }
+  main .section--subtle { --halo: var(--bg-subtle); }
+  main :is(.section-title, .section-lede, .prose > p) { background: var(--halo); box-shadow: 0 0 24px 16px var(--halo); }
+  /* The cards have borders, which a neighbour's fade would paint over, so they are simply solid. */
+  main :is(.index-item, .figure) { background: var(--halo); }
+</style>
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('nerv-theme');
+      if (t) document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead__inner">
+    <a class="masthead__brand" href="/" aria-label="Nerv Dynamics — home"><img class="logo" src="/assets/logo.png" alt="Nerv Dynamics" width="2061" height="724"></a>
+    <nav class="masthead__nav" aria-label="Primary">
+      <div class="masthead__links" id="primary-links">
+        <a href="https://nervlinux.org">Nerv Linux</a>
+        <a href="#offer">For organisations</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light theme" title="Switch theme">
+        <svg class="icon icon--moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M20.7 14.6A8.6 8.6 0 0 1 9.4 3.3a8.7 8.7 0 1 0 11.3 11.3Z"/></svg>
+        <svg class="icon icon--sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M12 2.4v2.4M12 19.2v2.4M2.4 12h2.4M19.2 12h2.4"/><path d="M5.2 5.2l1.7 1.7M17.1 17.1l1.7 1.7M18.8 5.2l-1.7 1.7M6.9 17.1l-1.7 1.7"/></g></svg>
+      </button>
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="primary-links">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path class="menu-toggle__open" d="M4 7h16M4 12h16M4 17h16"/><path class="menu-toggle__close" d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<canvas class="field" id="field" aria-hidden="true"></canvas>
+
+<main id="main">
+
+<section class="section" id="nerv">
+  <div class="wrap">
+    <h2 class="section-title">We make Nerv Linux</h2>
+    <div class="prose">
+      <p>Nerv Dynamics AB develops and sponsors <span class="kw kw--nerv">Nerv Linux</span>, an open-source operating system for <span class="kw kw--nvidia">NVIDIA</span> Grace Blackwell computers, built from scratch on musl and targeting one platform. With it come <span class="kw kw--nerv">S2</span>, an inference engine written against the CUDA driver API, <span class="kw kw--nerv">axon</span>, which makes a GPU on another machine work like a local one, and <span class="kw kw--nerv">Plexus</span>, which decides which machines may reach which. All of it is open source under Apache-2.0.</p>
+    </div>
+    <div class="figures">
+      <div class="figure">
+        <span class="figure__n">3&times;</span>
+        <p class="figure__what">faster than other state of the art inference engines. <a href="https://nervlinux.org/system/#s2">S2 &rarr;</a></p>
+      </div>
+      <div class="figure">
+        <span class="figure__n">42&times;</span>
+        <p class="figure__what">faster than vLLM at loading a model. <a href="https://nervlinux.org/system/#s2">S2 &rarr;</a></p>
+      </div>
+      <div class="figure">
+        <span class="figure__n">10&nbsp;&micro;s</span>
+        <p class="figure__what">latency to a second GB10 machine. <a href="https://nervlinux.org/system/#remote-gpu">axon &rarr;</a></p>
+      </div>
+      <div class="figure">
+        <span class="figure__n">2&times;</span>
+        <p class="figure__what">glibc's malloc speed, with 88% fewer heap attacks. <a href="https://nervlinux.org/system/#umalloc">umalloc &rarr;</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--subtle" id="offer">
+  <div class="wrap">
+    <h2 class="section-title">For organisations</h2>
+    <p class="section-lede">Nerv is free to run. Organisations pay for what it takes to run a fleet under their own rules.</p>
+    <div class="index-list">
+      <div class="index-item">
+        <h3>The management plane</h3>
+        <p>One place to run a fleet of GB10 and GB300 machines: which GPUs serve which teams, which machines are enrolled and which generation each one runs. It runs on your own hardware, connected or fully air-gapped. <a href="https://nervlinux.org/enterprise/">Details &rarr;</a></p>
+      </div>
+      <div class="index-item">
+        <h3>Supported generations</h3>
+        <p>A frozen, validated release of Nerv, kept patched for an agreed period and tested on your hardware and workloads, changing only through your change control. <a href="https://nervlinux.org/enterprise/">Details &rarr;</a></p>
+      </div>
+      <div class="index-item">
+        <h3>Preinstallation</h3>
+        <p>Ship Nerv signed and locked down on hardware you sell. No GPL-3 package is needed to boot it, and preinstallation on GB10 and GB300 is licensed per unit. <a href="https://nervlinux.org/enterprise/">Details &rarr;</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="sweden">
+  <div class="wrap">
+    <h2 class="section-title">Built in Sweden, held by you</h2>
+    <div class="prose">
+      <p>Keys are generated on each machine and never leave it, every package is built from source, and the source is open to audit. With a customer-held trust root, your key decides what your fleet runs. Licences are signed files checked offline, and nothing in Nerv calls home.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--subtle" id="contact">
+  <div class="wrap">
+    <h2 class="section-title">Contact</h2>
+    <div class="prose">
+      <p>Nerv Dynamics AB, Stockholm, Sweden. Write to <a href="mailto:albert@nervdynamics.ai">albert@nervdynamics.ai</a> about the management plane, supported generations or preinstallation.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__base">
+      <p>Copyright &copy; 2026 Nerv Dynamics AB. Nerv Linux is free software under the Apache License 2.0.</p>
+      <p class="footer__tm">NVIDIA, CUDA, DGX, Grace Blackwell, GB10 and GB300 are trademarks of NVIDIA Corporation. Linux is a registered trademark of Linus Torvalds. Nerv Dynamics is not affiliated with, endorsed by, or sponsored by either.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var btn = document.getElementById('theme-toggle');
+    var root = document.documentElement;
+    function label() {
+      var dark = root.getAttribute('data-theme') !== 'light';
+      btn.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
+    }
+    label();
+    btn.addEventListener('click', function () {
+      // Light is the default; the attribute on <html> says so until the toggle changes it.
+      var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('nerv-theme', next); } catch (e) {}
+      label();
+    });
+  })();
+  (function () {
+    // Phone menu: the nav links fold into a panel under the masthead.
+    var btn = document.getElementById('menu-toggle');
+    var head = btn.closest('.masthead');
+    btn.addEventListener('click', function () {
+      var open = head.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  })();
+</script>
+<script src="/assets/field.js"></script>
+
+</body>
+</html>

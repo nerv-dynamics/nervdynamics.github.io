@@ -1,0 +1,91 @@
+/* ==========================================================================
+   Ashinoko — the Nerv typeface. Self-hosted, subsetted. No third-party
+   requests.
+
+   These are the operating system's own letters: the same families the
+   terminal, the console and the desktop are set in. The page and the machine
+   say the same word in the same hand, which is the one piece of brand nobody
+   else can copy.
+
+   Built by nerv-fonts from an in-tree Iosevka plan, which IS the design:
+   Iosevka is parametric, so the typeface is the selection of variants,
+   weights and metrics recorded in that plan. SIL OFL 1.1, see
+   fonts/LICENSE-OFL.txt, which ships because the licence requires it.
+
+   nerv-fonts ships webfonts too, but unsubsetted: 23 MB for sixteen faces.
+   fonts/build-webfonts.py cuts the eight the site uses down to 113 KB and
+   verifies glyph coverage against the built pages. Do not hand-edit the
+   .woff2 files.
+
+   NO DISPLAY CUT YET. Ashinoko Sans is quasi-proportional at width 525,
+   which is right for reading at 14px and tight at 32px, where the
+   sidebearings struggle to separate the letters. Headings compensate with
+   positive tracking (see tokens.css). The real fix is a wider cut in
+   nerv-fonts, width 600; see docs/type.md.
+
+   The subset is wider than "latin" on purpose. The range is authoritative in
+   fonts/build-webfonts.py, which verifies it rather than trusting it.
+   ========================================================================== */
+
+
+/* --- Ashinoko Sans — display, UI, and short copy ---------------------- */
+@font-face {
+  font-family: "Ashinoko Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/ashinoko-sans-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Ashinoko Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/ashinoko-sans-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Ashinoko Sans";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/ashinoko-sans-400i.woff2") format("woff2");
+}
+
+/* --- Ashinoko Sans Mono — terminals, labels, data --------------------- */
+@font-face {
+  font-family: "Ashinoko Sans Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/ashinoko-sans-mono-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Ashinoko Sans Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/ashinoko-sans-mono-700.woff2") format("woff2");
+}
+
+/* --- Ashinoko Serif — documents and long-form reading ----------------- */
+@font-face {
+  font-family: "Ashinoko Serif";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/ashinoko-serif-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Ashinoko Serif";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/ashinoko-serif-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Ashinoko Serif";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/ashinoko-serif-400i.woff2") format("woff2");
+}

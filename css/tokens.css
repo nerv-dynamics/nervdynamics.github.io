@@ -1,0 +1,162 @@
+/* The colour aliases are declared for :root AND for .on-dark, and the second
+   selector is load-bearing rather than tidy.
+
+   A custom property that references another one is resolved where it is
+   DECLARED, not where it is used. So `--text: var(--myelin-fg)` computes
+   against :root's --myelin-fg and then inherits that finished value. An
+   element deeper in the tree redeclaring --myelin-fg does not change it.
+
+   .on-dark redeclares the Myelin tokens for a subtree that stays dark whatever
+   the page is doing. Without repeating the alias block here, that subtree got
+   Myelin's dark scale and the light theme's semantics: a dark hero with dark
+   text on it. Listing both selectors re-resolves every alias inside .on-dark
+   against the values it actually has. */
+:root, .on-dark {
+  /* --- Colour ------------------------------------------------------------
+     Every value below resolves to a Myelin token from css/palette.css. The
+     site states no colour of its own: Myelin already ships light and dark,
+     and already distinguishes a colour from its -ink variant, which is the
+     one meant for coloured running text.
+
+     There used to be a block of contrast corrections here, because OneDark
+     is tuned for one background and fails badly on the other. Myelin is
+     authored for both, so the corrections are gone rather than ported. */
+
+  --bg:            var(--myelin-bg);
+  --bg-subtle:     var(--myelin-surface);
+  /* A third ground, which Myelin does not define. Derived rather than
+     invented, so it follows the theme instead of pinning a hex. */
+  --bg-sunken:     color-mix(in srgb, var(--myelin-bg) 94%, var(--myelin-fg));
+  --bg-inverse:    var(--myelin-fg);
+
+  --text:          var(--myelin-fg);
+  --text-secondary:var(--myelin-muted);
+  --text-tertiary: var(--myelin-subtle);
+  --text-inverse:  var(--myelin-bg);
+  --text-on-brand: var(--myelin-on-ink);
+
+  --border:        var(--myelin-line);
+  --border-strong: var(--myelin-strong);
+  /* The visible edge of a CONTROL, which WCAG 1.4.11 holds to 3:1. The
+     hairlines above are structure and exempt as decoration; a button's edge
+     is how you know it is a button. */
+  --border-interactive: var(--myelin-strong);
+
+  --link:          var(--myelin-accent-ink);
+  --focus:         var(--myelin-accent);
+
+  /* Accents, for coloured running text. The -ink variants exist for this. */
+  --accent-red:    var(--myelin-red-ink);
+  --accent-orange: var(--myelin-orange-ink);
+  --accent-yellow: var(--myelin-yellow-ink);
+  --accent-green:  var(--myelin-green-ink);
+  --accent-cyan:   var(--myelin-cyan-ink);
+  --accent-blue:   var(--myelin-blue-ink);
+  --accent-purple: var(--myelin-magenta-ink);
+
+  /* The terminal shows the palette rather than using it, so those blocks
+     take the plain colours, not the -ink ones. */
+  --nerv-bg:       var(--myelin-bg);
+  --nerv-fg:       var(--myelin-fg);
+  --nerv-gray:     var(--myelin-subtle);
+  --nerv-red:      var(--myelin-red);
+  --nerv-orange:   var(--myelin-orange);
+  --nerv-yellow:   var(--myelin-yellow);
+  --nerv-green:    var(--myelin-green);
+  --nerv-cyan:     var(--myelin-cyan);
+  --nerv-blue:     var(--myelin-blue);
+  --nerv-magenta:  var(--myelin-magenta);
+  --term-bg-deep:  var(--myelin-surface);
+
+  /* Brand. The wordmark artwork is pure #ff0000 and is never recoloured;
+     marks are exempt from contrast rules. It is a PNG, so no token is needed
+     for it, and there is deliberately no red in this file: every red in the
+     interface is Myelin's. */
+  --brand:         var(--myelin-brand-ink);
+  --brand-deep:    var(--myelin-brand);
+
+  /* Show-in-this-theme switches. The wordmark no longer needs them — one
+     file serves both grounds — but the theme toggle still does, because it
+     shows the icon for the theme you would switch TO. */
+  --show-when-dark:   block;
+  --show-when-light:  none;
+
+}
+
+:root {
+  /* --- Type ------------------------------------------------------------- */
+  /* Ashinoko, the OS's own families. Ashinoko Sans is quasi-proportional
+     and reads as a technical face rather than a neutral one: right for
+     headings, labels and short copy, wrong for a column of prose. So
+     anything meant to be READ rather than scanned is set in --font-serif.
+     See docs/type.md, including why there is no Display cut yet. */
+  /* Ashinoko, the OS's own families. There is no Display cut yet, so the
+     headings use Ashinoko Sans and pay for it in tracking; see below. */
+  --font-display: "Ashinoko Sans", ui-sans-serif, system-ui, "Segoe UI",
+                  Roboto, Arial, sans-serif;
+  --font-sans:    "Ashinoko Sans", ui-sans-serif, system-ui, -apple-system,
+                  "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif:   "Ashinoko Serif", ui-serif, Georgia, "Times New Roman", serif;
+  --font-mono:    "Ashinoko Sans Mono", ui-monospace, SFMono-Regular, "SF Mono",
+                  Menlo, Consolas, "Liberation Mono", monospace;
+
+  --t-xs:   0.75rem;
+  --t-sm:   0.875rem;
+  --t-base: 1rem;
+  --t-md:   1.125rem;
+  --t-lg:   1.375rem;
+  --t-xl:   1.75rem;
+  --t-2xl:  2.25rem;
+  --t-3xl:  3rem;
+
+  /* ONE display size. Every large statement on the site uses it: the page
+     headline, a section's opening claim, the line over a screenshot.
+
+     There were briefly two, on the theory that a claim running the full column
+     wants more size than a headline constrained beside the hero photo. That is
+     a description of a layout constraint, not of a hierarchy, and the result
+     was two nearly-identical sizes that read as an accident. It is also the
+     wrong way round: nothing on a page should outrank its h1.
+
+     A second step needs a reason that can be written here. */
+  --t-display: clamp(1.55rem, 2.2vw, 2rem);
+  --t-4xl:  4rem;
+
+  /* Optical weight compensation. A weight that looks right at 16px looks
+     heavy at 64px, because stroke thickness scales with the type while the
+     eye's tolerance for it does not. So weight goes DOWN as size goes up.
+     Display sizes take 300; nothing large is ever set at 600. */
+  --w-poster:  300;   /* 3rem and above */
+  --w-display: 300;   /* hero, page titles */
+  --w-title:   600;   /* section headings */
+
+  --lh-tight: 1.15;
+  --lh-snug:  1.3;
+  --lh-body:  1.6;
+  --lh-loose: 1.7;
+
+  /* Headings take POSITIVE tracking. Ashinoko Sans is quasi-proportional at
+     width 525, which is right at 14px and tight at 32px. A wider cut is the
+     real fix and belongs in nerv-fonts; until it exists, spacing does the
+     work the width should. Never negative: that is what made headings set
+     solid when the site was on IBM Plex's values. */
+  --tracking-tight: 0.015em;
+  --tracking-wide:   0.06em;
+  --tracking-caps:   0.10em;
+
+  /* --- Space (8px base) -------------------------------------------------- */
+  --s-1:  0.25rem;  --s-2:  0.5rem;   --s-3: 0.75rem;  --s-4: 1rem;
+  --s-5:  1.5rem;   --s-6:  2rem;     --s-7: 2.5rem;   --s-8: 3rem;
+  --s-9:  4rem;     --s-10: 5rem;     --s-11: 6rem;    --s-12: 8rem;
+
+  /* --- Layout ----------------------------------------------------------- */
+  --max-w:      1312px;
+  --max-w-text: 68ch;
+  --gutter:     var(--s-5);
+
+  /* --- Motion ----------------------------------------------------------- */
+  --ease: cubic-bezier(0.2, 0, 0.38, 0.9);
+  --dur:  110ms;
+}
+
+:root[data-theme="light"] { --show-when-dark: none; --show-when-light: block; }
