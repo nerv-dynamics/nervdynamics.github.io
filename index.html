@@ -35,6 +35,7 @@
   main :is(.section-title, .section-lede, .prose > p) { background: var(--halo); box-shadow: 0 0 24px 16px var(--halo); }
   /* The cards have borders, which a neighbour's fade would paint over, so they are simply solid. */
   main :is(.index-item, .figure) { background: var(--halo); }
+  .prose + .figures { margin-top: var(--s-8); }
 </style>
 <script>
   (function () {
